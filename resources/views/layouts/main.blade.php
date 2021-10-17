@@ -80,7 +80,6 @@
                         <a class="collapse-item" href="{{ route('users.index') }}">User</a>
                         <a class="collapse-item" href="cards.html">Role</a>
                         <a class="collapse-item" href="cards.html">Permission</a>
-                        <a class="collapse-item" href="cards.html">City</a>
 
 
                     </div>
