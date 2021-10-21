@@ -9,13 +9,11 @@
         <div class="row">
         <div class="card mx-auto">
 
-                <!-- <div>
-                @if (session()->has('message'))
+                <div v-if="showMessage">
                         <div class="alert alert-success">
-                                {{ session ('message')}}
+                                {{ message }}
                         </div>
-                @endif
-                </div> -->
+                </div>
                 <div class="card-header">
                 `<div class="row">
 
@@ -53,28 +51,20 @@
                         </thead>
                         <tbody>
                                         
-                        <tr>
-                        <th scope="row"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <tr v-for="employee in employees" :key="employee.id">
+                        <th scope="row"> {{ employee.id }}</th>
+                        <td> {{ employee.first_name }}</td>
+                        <td> {{ employee.last_name }} </td>
+                        <td> {{ employee.address }} </td>
+                        <td>{{ employee.department.name  }} </td>
 
                         <td>
-                                <a href="" class="btn btn-success"><i class="far fa-edit"></i>
-
-                        </a>
-                               
-                        </td>
-                        <td>
-                        <form method="POST" action="">
-                                        
-                                        <button class="btn btn-danger"><i class="fas fa-trash-alt"></i>
+                                <router-link :to="{name: 'EmployeesEdit', params: {id: employee.id}}" class="btn btn-success"><i class="far fa-edit"></i></router-link>
+                               <button @click="deleteEmployee(employee.id)" class="btn btn-danger"><i class="fas fa-trash-alt"></i>
 
                                         </button>
-                                </form>
-
                         </td>
+                        
                         </tr>
                       
                         </tbody>
@@ -91,7 +81,9 @@ export default {
 
     data (){
             return {
-                    employees: []
+                    employees: [],
+                    showMessage: false,
+                    message: ''
             }
     },
     created() {
@@ -105,8 +97,19 @@ export default {
                              this.employees = res.data.data
                      }).catch(error => {
                              console.log(error);
-                     })
+                     });
+        },
+        deleteEmployee(id){
+                axios.delete('/api/employees/'+ id)
+                     .then(res => {
+                        this.showMessage = true;
+                        this.message = res.data;
+                        this.getEmployees();
+                     })   
         }
+
+
+
     }
 }
 </script>

@@ -224,7 +224,12 @@ export default {
                 'date_hired': this.format_date(this.form.date_hired),
             
 
-            }).then(res => console.log(res));
+            }).then(res => {
+
+                this.$router.push({name: 'EmployeesIndex'})
+                console.log(res)
+                
+                });
 
         },
         format_date(value){
