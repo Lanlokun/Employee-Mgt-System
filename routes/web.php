@@ -9,7 +9,9 @@ use App\Http\Controllers\Backend\CityController;
 
 
 
+
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -38,4 +40,7 @@ Route::post('users/{user}/change-password', [ChangePasswordController::class, 'c
 Route::get('{any}', function(){
     return view('employees.index');
 
-})->where('{any}', '.*');
+})->where('any', '.*');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
