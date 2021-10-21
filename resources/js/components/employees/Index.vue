@@ -89,6 +89,25 @@
 <script>
 export default {
 
+    data (){
+            return {
+                    employees: []
+            }
+    },
+    created() {
+            this.getEmployees();
+    },
+
+    methods: {
+        getEmployees(){
+                axios.get('/api/employees')
+                     .then(res => {
+                             this.employees = res.data.data
+                     }).catch(error => {
+                             console.log(error);
+                     })
+        }
+    }
 }
 </script>
 
